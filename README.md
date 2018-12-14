@@ -1,45 +1,6 @@
 esxvm
 =====
 
-
-```vis
-data:
-  url: "data/cars.csv"
-mark: circle
-encoding:
-  x:
-    type: quantitative
-    field: kmpl
-    scale:
-     domain: [12,25]
-  y:
-    type: quantitative
-    field: price
-    scale:
-     domain: [100,900]
-  color:
-    type: nominal
-    field: type
-  size:
-    type: quantitative
-    field: bhp
-config:
-  cell:
-    width: 450
-    height: 300
-```
-
-Hihi
-
-```python
->>> pipeline([
-...     ["/bin/echo", "-n", "hello"],
-...     ["/bin/tr", "e", "a"],
-...   ], stdout=b"", stderr=None
-... )
-b'hallo'
-```
-
 Purpose
 -------
 
