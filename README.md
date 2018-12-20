@@ -126,10 +126,3 @@ the case in the configuration mentioned beforehand)
 
 - Destroy the VM with ID 42 (must not be powered on):<br />
   ``$ vm kill 42``
-
-
-Support
--------
-
-The module is tested with Python 3. There is no work going on to
-ensure compatibility with Python 2.
