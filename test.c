@@ -3,6 +3,6 @@
 #include <stdio.h>
 
 int main() {
-  puts("aloha, you there!");
+  puts("aloha, you there! No?");
   return 0;
 }
