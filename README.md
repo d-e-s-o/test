@@ -25,6 +25,8 @@ by plugins.
 
 ```
 
+<span style=“color:green;”>blubb</span>
+
 Installation
 ------------
 
