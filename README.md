@@ -27,6 +27,14 @@ by plugins.
 
 <span style=“color:green;”>blubb</span>
 
+<style
+  type="text/css">
+h1 {color:red;}
+
+p {color:blue;}
+</style>
+<p>okay</p>
+
 Installation
 ------------
 
