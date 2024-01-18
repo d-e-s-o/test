@@ -8,24 +8,23 @@ on:
 
 jobs:
   build:
-    name: Build statically linked binary
+    name: Build
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        # Please update the test workflow cross-compile matrix when adding a new
+        # target here.
+        target: [
+          x86_64-unknown-linux-musl,
+        ]
     steps:
       - uses: actions/checkout@v4
-      - name: Install dependencies
-        run: |
-          sudo apt-get install musl-tools libhidapi-dev
-          sudo ln -s /bin/g++ /bin/musl-g++
-      - uses: actions-rs/toolchain@v1
+      - uses: taiki-e/setup-cross-toolchain-action@v1
         with:
-          toolchain: stable
-          profile: minimal
-          override: true
-          target: x86_64-unknown-linux-musl
+          target: ${{ matrix.target }}
       - run: |
-          cargo install --bin=nitrocli --path=. --root=. --target x86_64-unknown-linux-musl
-          strip bin/nitrocli
+          cargo install --bin=nitrocli --path=. --root=. --target ${{ matrix.target }}
       - uses: actions/upload-artifact@v4
         with:
-          name: nitrocli
+          name: nitrocli-${{ matrix.target }}
           path: bin/nitrocli
