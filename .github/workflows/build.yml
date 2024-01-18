@@ -23,7 +23,7 @@ jobs:
         with:
           target: ${{ matrix.target }}
       - run: |
-          sudo apt-get install libhidapi-dev
+          sudo apt-get install librust-hidapi-sys+static-dev
           cargo install --bin=nitrocli --path=. --root=. --target ${{ matrix.target }}
       - uses: actions/upload-artifact@v4
         with:
