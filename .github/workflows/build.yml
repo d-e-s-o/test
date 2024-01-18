@@ -52,27 +52,37 @@ jobs:
       CXX: "musl-g++ -static"
       #TARGET: "x86_64-unknown-linux-musl"
       TARGET: "x86_64-linux-musl"
+      ARCH: "amd64"
     steps:
       - uses: actions/checkout@v4
-      - name: Install dependencies
-        run: |
-          sudo sed -i 's@^# deb-src @deb-src @' /etc/apt/sources.list
-          sudo apt-get update
-          sudo apt-get install musl-dev musl-tools
-          sudo ln -s /bin/g++ /bin/musl-g++
-          sudo apt-get source libhidapi-dev
-          sudo apt-get build-dep libhidapi-dev
-          sudo apt-get source --compile libhidapi-dev
-          sudo sudo dpkg -i libhidapi*.deb
-      - uses: actions-rs/toolchain@v1
+      - name: Install Alpine Linux with dependencies
+        uses: jirutka/setup-alpine@v1
         with:
-          toolchain: stable
-          profile: minimal
-          override: true
-          target: x86_64-unknown-linux-musl
+          branch: latest-stable
+          packages: >
+            build-base
+            cargo
+            libhidapi-dev
+      #- name: Install dependencies
+      #  run: |
+      #    sudo sed -i 's@^# deb-src @deb-src @' /etc/apt/sources.list
+      #    sudo apt-get update
+      #    sudo apt-get install musl-dev musl-tools linux-musl-dev
+      #    sudo ln -s /bin/g++ /bin/musl-g++
+      #    sudo apt-get source libhidapi-dev
+      #    sudo apt-get build-dep libhidapi-dev
+      #    sudo apt-get source --compile libhidapi-dev
+      #    sudo sudo dpkg -i libhidapi*.deb
+      #- uses: actions-rs/toolchain@v1
+      #  with:
+      #    toolchain: stable
+      #    profile: minimal
+      #    override: true
+      #    target: x86_64-unknown-linux-musl
       - run: |
           cargo install --bin=nitrocli --path=. --root=. --target x86_64-unknown-linux-musl
           strip bin/nitrocli
+        shell: alpine.sh {0}
       - uses: actions/upload-artifact@v4
         with:
           name: nitrocli
